@@ -10,18 +10,16 @@ resource "azurerm_storage_account" "san123" {
 
 resource "azurerm_storage_container" "data" {
     name = "data"
-    storage_account_name = "sanprajakta"
+    storage_account_name = azurerm_storage_account.san123.name
     container_access_type = "private"
-
-  
 }
 
-resource "azurerm_storage_blob" "blob" {
+resource "azurerm_storage_blob" "mydata" {
     name = "Hello.txt"
-    storage_account_name = "sanprajakta"
-    storage_container_name = "data"
+    storage_account_name = azurerm_storage_account.san123.name
+    storage_container_name = azurerm_storage_container.name
     type = "Block"
-    source = "Demo/Hello.txt"
+    source = "./Hello.txt"
 
 
   
