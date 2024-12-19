@@ -17,11 +17,11 @@ resource "azurerm_storage_container" "data" {
 }
 
 resource "azurerm_storage_blob" "blob" {
-    name = "Hello.docs"
+    name = "Hello.txt"
     storage_account_name = "sanprajakta"
     storage_container_name = "data"
     type = "Block"
-    source = "Hello.docs"
+    source = "Demo/Hello.txt"
 
 
   
