@@ -9,12 +9,12 @@ variable "client_id" {
 }
 
 variable "tenant_id" {
-    description = "Tennat ID for Azure"
-    type = string
+  description = "Tennat ID for Azure"
+  type        = string
 }
 
 variable "subscription_id" {
-    description = "subscription ID for Azure"
-    type = string
-  
+  description = "subscription ID for Azure"
+  type        = string
+
 }
