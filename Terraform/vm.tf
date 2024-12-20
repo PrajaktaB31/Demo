@@ -18,7 +18,7 @@ resource "azurerm_windows_virtual_machine" "vm-praju" {
   location            = azurerm_resource_group.rg.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
-  admin_password      = "P@$$w0rd1234!"
+  admin_password      = azurerm_key_vault_secret.sec-p.value
   availability_set_id = azurerm_availability_set.availab-p.id
   network_interface_ids = [
     azurerm_network_interface.ni-praju.id,
