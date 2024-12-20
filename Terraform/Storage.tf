@@ -20,6 +20,7 @@ resource "azurerm_storage_blob" "mydata" {
     storage_container_name = azurerm_storage_container.data.name
     type = "Block"
     source = "./Hello.txt"
+    depends_on = [ azurerm_storage_container.data ]
 
 
   
