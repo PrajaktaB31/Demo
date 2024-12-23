@@ -18,3 +18,8 @@ variable "subscription_id" {
   type        = string
 
 }
+
+variable "access_token" {
+  type        = string
+  description = "Azure access token"
+}

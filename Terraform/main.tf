@@ -21,6 +21,7 @@ provider "azurerm" {
   client_secret   = var.client_secret   # The client secret you created
   tenant_id       = var.tenant_id       # The Directory (tenant) ID
   subscription_id = var.subscription_id # Your Azure subscription ID
+  
   features {}
 }
 
