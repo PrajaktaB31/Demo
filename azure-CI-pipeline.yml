@@ -1,0 +1,58 @@
+trigger:
+  - main
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        pool:
+          vmImage: 'Ubuntu-latest'
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: TF init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Free Trial(245d07e8-356d-4a77-8586-59f669ebffcf)'
+              backendAzureRmResourceGroupName: 'Prajakta'
+              backendAzureRmStorageAccountName: 'sanprajakta'
+              backendAzureRmContainerName: 'data'
+              backendAzureRmKey: 'dev.terraform.tfstate'
+
+          - task: TerraformTaskV4@4
+            displayName: TF validate
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+
+          - task: TerraformTaskV4@4
+            displayName: TF format
+            inputs:
+              provider: 'azurerm'
+              command: 'custom'
+              outputTo: 'console'
+              customCommand: 'fmt'
+              environmentServiceNameAzureRM: 'Free Trial(245d07e8-356d-4a77-8586-59f669ebffcf)'
+
+          - task: TerraformTaskV4@4
+            displayName: TF plan
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'Free Trial(245d07e8-356d-4a77-8586-59f669ebffcf)'
+
+          - task: ArchiveFiles@2
+            displayName: TF Archive
+            inputs:
+              rootFolderOrFile: '$(Build.SourcesDirectory)'
+              includeRootFolder: true
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              replaceExistingArchive: true
+
+          - task: PublishBuildArtifacts@1
+            displayName: TF Publish
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: '$(Build.BuildId) - build'
+              publishLocation: 'Container'
