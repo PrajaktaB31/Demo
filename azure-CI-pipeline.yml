@@ -9,7 +9,7 @@ stages:
           vmImage: 'Ubuntu-latest'
         steps:
           - task: TerraformTaskV4@4
-            displayName: TF init
+            displayName: TF Init
             inputs:
               provider: 'azurerm'
               command: 'init'
