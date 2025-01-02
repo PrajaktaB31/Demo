@@ -1,12 +1,14 @@
 trigger:
   - main
 
+pool:
+ name: 'azureagent-p' 
+
 stages:
   - stage: Build
     jobs:
       - job: Build
-        pool:
-          vmImage: 'Ubuntu-latest'
+        
         steps:
           - task: TerraformTaskV4@4
             displayName: TF Init
